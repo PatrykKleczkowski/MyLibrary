@@ -33,6 +33,8 @@ public class Book {
 
     private Date releaseDate;
 
+    private boolean available = true;
+
 
 
 }

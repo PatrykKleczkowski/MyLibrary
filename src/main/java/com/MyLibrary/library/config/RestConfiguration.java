@@ -1,4 +1,7 @@
 package com.MyLibrary.library.config;
+import com.MyLibrary.library.model.Author;
+import com.MyLibrary.library.model.Book;
+import com.MyLibrary.library.model.Hire;
 import com.MyLibrary.library.security.model.User;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.core.mapping.RepositoryDetectionStrategy;
@@ -13,5 +16,8 @@ public class RestConfiguration implements RepositoryRestConfigurer {
         config.setRepositoryDetectionStrategy(RepositoryDetectionStrategy.RepositoryDetectionStrategies.ANNOTATED);
         config.setBasePath("/api");
         config.exposeIdsFor(User.class);
+        config.exposeIdsFor(Book.class);
+        config.exposeIdsFor(Author.class);
+        config.exposeIdsFor(Hire.class);
     }
 }
