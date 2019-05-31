@@ -45,8 +45,6 @@ public class User {
     private Role roles;
 
 
-    private float costs;
-
     public User() {
     }
 
