@@ -1,5 +1,6 @@
 package com.MyLibrary.library.security.model;
 
+import com.MyLibrary.library.model.Hire;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,6 +10,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -43,6 +46,9 @@ public class User {
     @NonNull
     @JoinColumn(name = "id_role")
     private Role roles;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Hire> hireList = new ArrayList<>();
 
 
     public User() {
