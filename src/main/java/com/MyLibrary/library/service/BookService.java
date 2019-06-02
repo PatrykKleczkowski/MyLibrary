@@ -13,7 +13,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class BookService {
@@ -51,19 +53,27 @@ public class BookService {
         return hireRepository.save(hire);
     }
 
-    public Hire returnBook(Long bookId) {
-        Book book = bookRepository.getOne(bookId);
-        if (book.getAuthor().getId() != userHelper.getLoggedUser().getId()) {
+    @Transactional
+    public Hire returnBook(Long hireId) {
+        Hire hire = hireRepository.getOne(hireId);
+        if (hire.getUser().getId() != userHelper.getLoggedUser().getId()) {
             throw new WrongOwnerException();
         }
-        if (book.isAvailable()) {
-            throw new BookAvailabilityException("Book is available");
-        }
 
-        Hire hire = hireRepository.getHireByBook_Id(bookId);
         hire.setHireDateTo(new Date());
-        book.setAvailable(true);
+        hire.getBook().setAvailable(true);
+        bookRepository.save(hire.getBook());
         return hireRepository.save(hire);
+    }
+
+    public List<Book> getAllBooks() {
+        List<Book> books = bookRepository.findAll();
+        return books;
+    }
+
+
+    public Book editBook(Book book) {
+        return bookRepository.save(book);
     }
 
 }
