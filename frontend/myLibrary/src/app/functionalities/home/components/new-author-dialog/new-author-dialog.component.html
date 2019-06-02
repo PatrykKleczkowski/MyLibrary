@@ -1,0 +1,13 @@
+<form [formGroup]="newAuthorForm" (ngSubmit)="saveAuthor()">
+  <mat-form-field>
+    <input matInput type="text" id="firstName" formControlName="firstName" placeholder="First Name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="text" id="lastName" formControlName="lastName" placeholder="Last Name">
+  </mat-form-field>
+
+  <button mat-raised-button type="submit">Submit</button>
+</form>
+
+

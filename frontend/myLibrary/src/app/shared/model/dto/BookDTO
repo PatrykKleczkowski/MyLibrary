@@ -1,0 +1,7 @@
+export interface BookDTO {
+  title: string;
+  authorId: number;
+  releaseDate: Date;
+
+
+}

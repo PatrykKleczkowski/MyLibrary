@@ -1,0 +1,111 @@
+<mat-card>
+  <mat-card-subtitle>Admin login and password: Admin</mat-card-subtitle>
+  <mat-card-title>My library</mat-card-title>
+  <button mat-stroked-button color="primary" *ngIf="isAdmin()" (click)="openNewBookDialog()">Add new book</button>
+  <button mat-stroked-button color="accent" *ngIf="isAdmin()" (click)="openNewAuthorDialog()">Add new Author</button>
+
+</mat-card>
+
+<div class="row">
+  <div class="col-12">
+    <table mat-table [dataSource]="books" class="mat-elevation-z8 mt-4">
+
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Title</th>
+        <td mat-cell *matCellDef="let element"> {{element.title}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="author">
+        <th mat-header-cell *matHeaderCellDef> Author Name</th>
+        <td mat-cell *matCellDef="let element"> {{element.author.firstName}} {{element.author.lastName}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="releaseDate">
+        <th mat-header-cell *matHeaderCellDef> Release Date</th>
+        <td mat-cell *matCellDef="let element"> {{element.releaseDate | date: 'yyyy'}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="available">
+        <th mat-header-cell *matHeaderCellDef> Available</th>
+        <td mat-cell *matCellDef="let element">
+          <p *ngIf="element.available == true">YES</p>
+          <p *ngIf="element.available == false">NOPE</p>
+
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="borrowBook">
+        <th mat-header-cell *matHeaderCellDef> Actions</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-raised-button color="primary" *ngIf="element.available == true" class="mr-4"
+                  (click)="rentBook(element.id)">Borrow!
+          </button>
+          <button mat-button disabled *ngIf="element.available == false" class="mr-4">Borrow!</button>
+          <button mat-raised-button color="accent" *ngIf="isAdmin()" class="mr-4" (click)="editDialog(element)">Edit
+          </button>
+          <button mat-raised-button color="warn" *ngIf="isAdmin()" class="mr-4" (click)="deleteBook(element.id)">
+            Delete
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>
+
+<mat-card>
+  <mat-card-title>Your books</mat-card-title>
+</mat-card>
+
+<div class="row">
+  <div class="col-12">
+    <table mat-table [dataSource]="hires" class="mat-elevation-z8 mt-4">
+
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Title</th>
+        <td mat-cell *matCellDef="let element"> {{element.book.title}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="author">
+        <th mat-header-cell *matHeaderCellDef> Author Name</th>
+        <td mat-cell *matCellDef="let element"> {{element.book.author.firstName}} {{element.book.author.lastName}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="releaseDate">
+        <th mat-header-cell *matHeaderCellDef> Release Date</th>
+        <td mat-cell *matCellDef="let element"> {{element.book.releaseDate | date: 'yyyy'}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="dateFrom">
+        <th mat-header-cell *matHeaderCellDef> Date of rental</th>
+        <td mat-cell *matCellDef="let element"> {{element.hireDateFrom | date: medium}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dateTo">
+        <th mat-header-cell *matHeaderCellDef>Date of return</th>
+        <td mat-cell *matCellDef="let element">
+          <tr> {{element.hireDateTo | date: medium}}</tr>
+          <tr *ngIf="element.book.available == false"> -</tr>
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Actions</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-raised-button color="primary" *ngIf="element.hireDateTo == null" class="mr-4"
+                  (click)="returnBook(element.id)">Return
+          </button>
+
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="borrowed"></tr>
+      <tr mat-row *matRowDef="let row; columns: borrowed;"></tr>
+    </table>
+  </div>
+</div>

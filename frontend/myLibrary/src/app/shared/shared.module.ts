@@ -8,6 +8,7 @@ import {
   MatButtonToggleModule,
   MatCardModule,
   MatChipsModule,
+  MatDatepickerModule,
   MatDialogModule,
   MatDividerModule,
   MatExpansionModule,
@@ -17,16 +18,17 @@ import {
   MatInputModule,
   MatListModule,
   MatMenuModule,
+  MatNativeDateModule,
   MatPaginatorModule,
   MatProgressSpinnerModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule,
   MatSnackBarModule,
   MatSortModule,
   MatTableModule,
   MatTabsModule,
-  MatSliderModule,
-  MatToolbarModule,
-  MatSidenavModule
-  
+  MatToolbarModule
 } from '@angular/material';
 
 import {HttpClientModule} from '@angular/common/http';
@@ -62,7 +64,10 @@ import {HttpClientModule} from '@angular/common/http';
     MatToolbarModule,
     MatExpansionModule,
     MatButtonToggleModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class SharedModule {

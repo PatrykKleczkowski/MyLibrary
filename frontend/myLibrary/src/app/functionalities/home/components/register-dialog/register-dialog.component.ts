@@ -33,6 +33,8 @@ export class RegisterDialogComponent implements OnInit {
       this.authService
         .register(this.getRegistrationDetails())
         .subscribe(this.onSuccess, this.onFail);
+      window.location.reload();
+
     }
   }
 
