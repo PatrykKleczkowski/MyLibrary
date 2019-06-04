@@ -42,7 +42,8 @@ export class DialogService {
         title: book.title,
         author: book.author,
         available: book.available,
-        releaseDate: book.releaseDate
+        releaseDate: book.releaseDate,
+        hireList: book.hireList,
       },
     })
   }

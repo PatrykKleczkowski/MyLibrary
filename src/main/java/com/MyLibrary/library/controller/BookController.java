@@ -1,6 +1,7 @@
 package com.MyLibrary.library.controller;
 
 import com.MyLibrary.library.model.Book;
+import com.MyLibrary.library.model.dto.EditedBookDTO;
 import com.MyLibrary.library.model.dto.NewBookDTO;
 import com.MyLibrary.library.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +25,14 @@ public class BookController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')") //TODO ZMIENIC TYLKO NA USER
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @GetMapping("/books/rentBook/{bookId}")
     public ResponseEntity<?> rentBook(@PathVariable("bookId") Long bookId) {
         bookService.rentBook(bookId);
         return ResponseEntity.ok().build();
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')") //TODO ZMIENIC TYLKO NA USER
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @GetMapping("/books/returnBook/{id}")
     public ResponseEntity<?> returnBook(@PathVariable("id") Long hireId) {
         bookService.returnBook(hireId);
@@ -46,8 +47,8 @@ public class BookController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/books/edit")
-    public ResponseEntity<?> editBook(@RequestBody Book book) {
-        return ResponseEntity.ok(this.bookService.editBook(book));
+    public ResponseEntity<?> editBook(@RequestBody EditedBookDTO editedBookDTO) {
+        return ResponseEntity.ok(this.bookService.editBook(editedBookDTO));
     }
 
 }

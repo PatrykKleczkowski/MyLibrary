@@ -2,6 +2,7 @@ package com.MyLibrary.library.service;
 
 import com.MyLibrary.library.model.Book;
 import com.MyLibrary.library.model.Hire;
+import com.MyLibrary.library.model.dto.EditedBookDTO;
 import com.MyLibrary.library.model.dto.NewBookDTO;
 import com.MyLibrary.library.repository.AuthorRepository;
 import com.MyLibrary.library.repository.BookRepository;
@@ -20,14 +21,21 @@ import java.util.List;
 @Service
 public class BookService {
 
-    @Autowired
+
     private AuthorRepository authorRepository;
-    @Autowired
     private BookRepository bookRepository;
-    @Autowired
     private UserHelper userHelper;
-    @Autowired
     private HireRepository hireRepository;
+
+    @Autowired
+    public BookService(AuthorRepository authorRepository, BookRepository bookRepository, UserHelper userHelper, HireRepository hireRepository) {
+        this.authorRepository = authorRepository;
+        this.bookRepository = bookRepository;
+        this.userHelper = userHelper;
+        this.hireRepository = hireRepository;
+    }
+
+
 
 
     public Book addBook(NewBookDTO newBookDTO) {
@@ -72,8 +80,14 @@ public class BookService {
     }
 
 
-    public Book editBook(Book book) {
-        return bookRepository.save(book);
+    public Book editBook(EditedBookDTO editedBookDTO) {
+        Book book = bookRepository.getOne(editedBookDTO.getBookId());
+        book.setAuthor(authorRepository.getOne(editedBookDTO.getAuthorId()));
+        book.setTitle(editedBookDTO.getTitle());
+        book.setReleaseDate(editedBookDTO.getReleaseDate());
+
+       return bookRepository.save(book);
+
     }
 
 }

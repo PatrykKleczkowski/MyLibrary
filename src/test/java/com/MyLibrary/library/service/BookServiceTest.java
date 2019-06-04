@@ -1,8 +1,10 @@
 package com.MyLibrary.library.service;
 
 import com.MyLibrary.library.model.Book;
+import com.MyLibrary.library.model.Hire;
 import com.MyLibrary.library.repository.BookRepository;
 import com.MyLibrary.library.repository.HireRepository;
+import com.MyLibrary.library.repository.MockHireRepository;
 import com.MyLibrary.library.security.exception.BookAvailabilityException;
 import com.MyLibrary.library.security.model.User;
 import com.MyLibrary.library.security.service.UserHelper;
@@ -13,7 +15,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.data.jpa.repository.JpaRepository;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -27,7 +31,10 @@ class BookServiceTest {
     @Mock
     BookRepository bookRepository;
     @Mock
-    HireRepository hireRepository;
+    MockHireRepository mockHireRepository;
+
+    @InjectMocks
+    HireService hireService;
     @Mock
     UserHelper userHelper;
     User user;
@@ -36,7 +43,6 @@ class BookServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-
         user = new User();
         user.setId(new Long(123));
     }
@@ -50,6 +56,19 @@ class BookServiceTest {
         assertThrows(BookAvailabilityException.class, () -> {
             bookService.rentBook(new Long(1));
         });
+    }
+
+    @Test
+    public void rentBook_test(){
+        Book book = new Book();
+        book.setAvailable(true);
+        when(bookRepository.getOne(any())).thenReturn(book);
+
+        when(mockHireRepository.save(any())).thenCallRealMethod();
+
+        Hire hireTest = bookService.rentBook(1L);
+
+        assertFalse(hireTest.getBook().isAvailable());
     }
 
 

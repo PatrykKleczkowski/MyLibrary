@@ -8,8 +8,7 @@ export interface Book {
   hireList: Hire[];
   releaseDate: Date;
   available: boolean;
-  hireDateFrom: Date;
-  hireDateTo: Date;
+
 
 }
 
