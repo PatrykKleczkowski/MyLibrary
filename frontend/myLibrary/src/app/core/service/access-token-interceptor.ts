@@ -32,7 +32,7 @@ export class AccessTokenInterceptor implements HttpInterceptor {
   }
 
   handleExpiredTokenError = () => {
-    this.toastr.error('Twoja sesja wygasła, zaloguj się ponownie', 'Błąd');
+    this.toastr.error('Your session expired, try again', 'Error');
     this.authService.logout();
     return throwError('session expired');
   }

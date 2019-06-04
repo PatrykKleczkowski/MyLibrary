@@ -54,7 +54,7 @@ export class LoginDialogComponent implements OnInit {
 
   private onFail = (error: HttpErrorResponse) => {
     if (error.status === 403) {
-      this.toastr.error('Podano nieprawidłowe dane', 'Błąd');
+      this.toastr.error('Your authentication information is incorrect. Please try again.', 'Error');
     }
   }
 }

@@ -1,12 +1,12 @@
 <nav class="navbar">
   <div>
       <button routerLink="/home"><mat-icon>home</mat-icon></button>
-    <button  mat-stroked-button [matMenuTriggerFor]="menu">Konto</button>
+    <button  mat-stroked-button [matMenuTriggerFor]="menu">Account</button>
     <mat-menu #menu="matMenu">
-      <button *ngIf="!isLogged()" mat-menu-item (click)="loginDialog()">Logowanie</button>
-      <button *ngIf="!isLogged()" mat-menu-item (click)="registerDialog()">Rejestracja</button>
-      <button *ngIf="isLogged()" mat-menu-item (click)="logout()">Wyloguj</button>
-      <button *ngIf="isAdmin()" mat-menu-item routerLink="/admin-panel">Panel Administracyjny</button>
+      <button *ngIf="!isLogged()" mat-menu-item (click)="loginDialog()">Sing in</button>
+      <button *ngIf="!isLogged()" mat-menu-item (click)="registerDialog()">Register</button>
+      <button *ngIf="isLogged()" mat-menu-item (click)="logout()">Sing out</button>
+      <button *ngIf="isAdmin()" mat-menu-item routerLink="/admin-panel">Admin panel</button>
     </mat-menu>
   </div>
 </nav>
