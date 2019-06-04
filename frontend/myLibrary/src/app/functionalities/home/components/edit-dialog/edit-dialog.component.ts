@@ -54,6 +54,7 @@ export class EditDialogComponent implements OnInit {
     console.log("id ksiazki" + typeof bookId);
 
     this.bookService.editBook(bookId, title, author, date).subscribe();
+    window.location.reload();
   }
 
 }

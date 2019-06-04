@@ -1,6 +1,5 @@
 package com.MyLibrary.library.controller;
 
-import com.MyLibrary.library.model.Book;
 import com.MyLibrary.library.model.dto.EditedBookDTO;
 import com.MyLibrary.library.model.dto.NewBookDTO;
 import com.MyLibrary.library.service.BookService;
@@ -9,7 +8,10 @@ import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RepositoryRestController
 public class BookController {

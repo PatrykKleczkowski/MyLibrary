@@ -6,7 +6,7 @@
     <mat-form-field>
       <mat-select formControlName="author" [(ngModel)]="selectedValue" name="author">
         <mat-option *ngFor="let author of authors" [value]="author">
-          {{author.firstName}}
+          {{author.firstName}} {{author.lastName}}
         </mat-option>
       </mat-select>
   </mat-form-field>
