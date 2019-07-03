@@ -1,31 +1,27 @@
 CREATE TABLE author(
-id bigINT NOT NULL,
+id UUID PRIMARY KEY,
 first_name VARCHAR(40) NOT NULL,
-last_name VARCHAR(60) NOT NULL,
-
-PRIMARY KEY(id)
+last_name VARCHAR(60) NOT NULL
 );
 
 CREATE TABLE book(
-id bigINT NOT NULL,
+id UUID PRIMARY KEY,
 title VARCHAR(120) NOT NULL,
-author_id bigINT NOT NULL,
-release_date DATE NOT NULL,
+author_id UUID NOT NULL,
+release_date TIMESTAMP NOT NULL,
 
-PRIMARY KEY(id),
 FOREIGN KEY (author_id) references author(id) on delete no action on update cascade
 );
 
 
 
 CREATE TABLE hire (
-id bigINT NOT NULL,
-book_id bigINT NOT NULL,
-user_id bigINT NOT NULL,
-hire_date_from DATE NOT NULL,
-hire_date_to DATE DEFAULT NULL,
+id UUID PRIMARY KEY,
+book_id UUID NOT NULL,
+user_id UUID NOT NULL,
+hire_date_from TIMESTAMP NOT NULL,
+hire_date_to TIMESTAMP DEFAULT NULL,
 
-PRIMARY KEY(id),
 FOREIGN KEY (book_id) references book(id) on delete no action on update cascade,
 FOREIGN KEY (user_id) references user_entity(id) on delete no action on update cascade
-)
+);

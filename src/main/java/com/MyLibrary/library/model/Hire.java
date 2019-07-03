@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
+import java.util.UUID;
 
 
 @Entity
@@ -18,8 +19,7 @@ import java.util.Objects;
 public class Hire {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
     @JoinColumn(name="book_id")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)

@@ -12,6 +12,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -23,7 +24,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NonNull
-    private Long id;
+    private UUID id;
 
     @NonNull
     private String username;
@@ -56,7 +57,7 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String password, Role role) {
+    public User(UUID id, String username, String password, Role role) {
         this.id = id;
         this.username = username;
         this.password = password;

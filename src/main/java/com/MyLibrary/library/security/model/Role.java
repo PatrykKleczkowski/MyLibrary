@@ -2,10 +2,12 @@ package com.MyLibrary.library.security.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Generated;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -13,8 +15,8 @@ import java.util.List;
 public class Role {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    private UUID id;
 
     @Column
     private String name;
@@ -28,7 +30,7 @@ public class Role {
     public Role() {
     }
 
-    public Role(long id, String name, String description) {
+    public Role(UUID id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
