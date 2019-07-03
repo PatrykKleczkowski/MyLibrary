@@ -17,6 +17,7 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @Where(clause = "active = true")
+@Table(name = "user_entity")
 public class User {
 
     @Id

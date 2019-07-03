@@ -35,7 +35,11 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok:1.18.8'
 
 	implementation('org.flywaydb:flyway-core')
-	runtimeOnly('mysql:mysql-connector-java')
+	//runtimeOnly('mysql:mysql-connector-java')
+
+	// https://mvnrepository.com/artifact/org.postgresql/postgresql
+	compile group: 'org.postgresql', name: 'postgresql', version: '9.4-1206-jdbc42'
+
 
 	compileOnly 'org.projectlombok:lombok:1.18.4'
 
