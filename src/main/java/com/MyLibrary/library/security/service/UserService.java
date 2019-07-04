@@ -59,6 +59,16 @@ public class UserService implements UserDetailsService {
         return userRepository.save(newUser);
     }
 
+    public User createAdmin(UserCredentials admin){
+        checkUsername(admin.getUsername());
+        User newAdmin = new User();
+        newAdmin.setUsername(admin.getUsername());
+        newAdmin.setPassword(bcryptEncoder.encode(admin.getPassword()));
+        newAdmin.setRoles(roleService.getAdminRole());
+        newAdmin.setRegistered(LocalDateTime.now());
+        return userRepository.save(newAdmin);
+    }
+
     private void checkUsername(String username) {
         boolean usernameExists = userRepository.existsUserByUsername(username);
 

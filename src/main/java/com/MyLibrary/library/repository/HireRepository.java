@@ -14,6 +14,7 @@ import java.util.UUID;
 public interface HireRepository extends JpaRepository<Hire, Long> {
 
     Hire getHireByBook_Id(Long bookId);
+    Hire getById(UUID id);
 
     @Query("SELECT h FROM Hire h WHERE h.user.id =:id  ORDER BY h.hireDateFrom DESC")
     List<Hire> getHireByUserId(Pageable pageable, @Param("id") UUID id);

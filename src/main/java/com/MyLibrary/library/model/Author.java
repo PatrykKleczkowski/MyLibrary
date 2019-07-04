@@ -19,6 +19,7 @@ import java.util.UUID;
 public class Author {
 
     @Id
+    @GeneratedValue
     private UUID id;
 
     private String firstName;
@@ -40,5 +41,10 @@ public class Author {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public Author(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 }

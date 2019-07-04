@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class BookService {
@@ -40,14 +41,14 @@ public class BookService {
 
     public Book addBook(NewBookDTO newBookDTO) {
         Book book = new Book();
-        book.setAuthor(authorRepository.getOne(newBookDTO.getAuthorId()));
+        book.setAuthor(authorRepository.getOneById(newBookDTO.getAuthorId()));
         BeanUtils.copyProperties(newBookDTO, book);
 
         return bookRepository.save(book);
     }
 
-    public Hire rentBook(Long bookId) {
-        Book book = bookRepository.getOne(bookId);
+    public Hire rentBook(UUID bookId) {
+        Book book = bookRepository.getBookById(bookId);
         if (!book.isAvailable()) {
             throw new BookAvailabilityException("Book is not available");
         }
@@ -62,8 +63,8 @@ public class BookService {
     }
 
     @Transactional
-    public Hire returnBook(Long hireId) {
-        Hire hire = hireRepository.getOne(hireId);
+    public Hire returnBook(UUID hireId) {
+        Hire hire = hireRepository.getById(hireId);
         if (hire.getUser().getId() != userHelper.getLoggedUser().getId()) {
             throw new WrongOwnerException();
         }

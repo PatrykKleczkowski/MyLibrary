@@ -10,6 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -31,8 +33,8 @@ class UserServiceTest {
     void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        role = new Role(3L, "ROLE_USER", "User Role");
-        user = new User(1L, "name", "password", role);
+        role = new Role(UUID.randomUUID(), "ROLE_USER", "User Role");
+        user = new User(UUID.randomUUID(), "name", "password", role);
         userCredentials = new UserCredentials("name", "pd");
         user1 = new User();
     }

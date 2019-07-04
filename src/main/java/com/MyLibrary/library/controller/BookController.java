@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.UUID;
+
 @RepositoryRestController
 public class BookController {
 
@@ -29,14 +31,14 @@ public class BookController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @GetMapping("/books/rentBook/{bookId}")
-    public ResponseEntity<?> rentBook(@PathVariable("bookId") Long bookId) {
+    public ResponseEntity<?> rentBook(@PathVariable("bookId") UUID bookId) {
         bookService.rentBook(bookId);
         return ResponseEntity.ok().build();
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @GetMapping("/books/returnBook/{id}")
-    public ResponseEntity<?> returnBook(@PathVariable("id") Long hireId) {
+    public ResponseEntity<?> returnBook(@PathVariable("id") UUID hireId) {
         bookService.returnBook(hireId);
         return ResponseEntity.ok().build();
     }

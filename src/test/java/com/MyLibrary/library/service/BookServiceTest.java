@@ -14,6 +14,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -40,17 +42,18 @@ class BookServiceTest {
     void setUp() {
         MockitoAnnotations.initMocks(this);
         user = new User();
-        user.setId(new Long(123));
+        user.setId(UUID.randomUUID());
     }
 
     @Test
     public void rentBook_book_not_available_test() {
         Book book = new Book();
+        book.setId(UUID.randomUUID());
         book.setAvailable(false);
-        when(bookRepository.getOne(any())).thenReturn(book);
+        when(bookRepository.getBookById(any())).thenReturn(book);
 
         assertThrows(BookAvailabilityException.class, () -> {
-            bookService.rentBook(new Long(1));
+            bookService.rentBook(book.getId());
         });
     }
 

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -13,7 +14,7 @@ public class NewBookDTO {
 
     private String title;
 
-    private Long authorId;
+    private UUID authorId;
 
     private Date releaseDate;
 }
