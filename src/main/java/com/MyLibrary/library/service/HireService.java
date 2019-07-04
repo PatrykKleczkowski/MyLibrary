@@ -21,4 +21,5 @@ public class HireService {
     public List<Hire> getUserHires() {
         return hireRepository.getHireByUserId(new PageRequest(0, 15), userHelper.getLoggedUser().getId());
     }
+
 }

@@ -19,6 +19,7 @@ import java.util.UUID;
 public class Hire {
 
     @Id
+    @GeneratedValue
     private UUID id;
 
     @JoinColumn(name="book_id")

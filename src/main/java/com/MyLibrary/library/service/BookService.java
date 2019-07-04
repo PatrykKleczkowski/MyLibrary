@@ -8,6 +8,7 @@ import com.MyLibrary.library.repository.AuthorRepository;
 import com.MyLibrary.library.repository.BookRepository;
 import com.MyLibrary.library.repository.HireRepository;
 import com.MyLibrary.library.security.exception.BookAvailabilityException;
+import com.MyLibrary.library.security.exception.BookLimitException;
 import com.MyLibrary.library.security.exception.WrongOwnerException;
 import com.MyLibrary.library.security.service.UserHelper;
 import org.springframework.beans.BeanUtils;
@@ -27,16 +28,17 @@ public class BookService {
     private BookRepository bookRepository;
     private UserHelper userHelper;
     private HireRepository hireRepository;
+    private HireService hireService;
 
     @Autowired
-    public BookService(AuthorRepository authorRepository, BookRepository bookRepository, UserHelper userHelper, HireRepository hireRepository) {
+    public BookService(AuthorRepository authorRepository, BookRepository bookRepository, UserHelper userHelper,
+                       HireRepository hireRepository, HireService hireService) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
         this.userHelper = userHelper;
         this.hireRepository = hireRepository;
+        this.hireService = hireService;
     }
-
-
 
 
     public Book addBook(NewBookDTO newBookDTO) {
@@ -52,8 +54,15 @@ public class BookService {
         if (!book.isAvailable()) {
             throw new BookAvailabilityException("Book is not available");
         }
-        Hire hire = new Hire();
+        if (hireService.getUserHires().toArray().length >= 3) {
+            throw new BookLimitException();
+        }
 
+        return createHire(book);
+    }
+
+    public Hire createHire(Book book) {
+        Hire hire = new Hire();
         hire.setBook(book);
         hire.setHireDateFrom(new Date());
         hire.setUser(userHelper.getLoggedUser());
@@ -87,7 +96,7 @@ public class BookService {
         book.setTitle(editedBookDTO.getTitle());
         book.setReleaseDate(editedBookDTO.getReleaseDate());
 
-       return bookRepository.save(book);
+        return bookRepository.save(book);
 
     }
 
