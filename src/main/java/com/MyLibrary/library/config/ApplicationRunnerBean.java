@@ -41,8 +41,8 @@ public class ApplicationRunnerBean implements ApplicationRunner {
     }
 
     private void createRoles() {
-        Role roleAdmin = new Role(UUID.randomUUID(), "Admin Role", "ROLE_ADMIN");
-        Role roleUser = new Role(UUID.randomUUID(), "User Role", "ROLE_USER");
+        Role roleAdmin = new Role(UUID.randomUUID(), "ROLE_ADMIN", "Admin Role");
+        Role roleUser = new Role(UUID.randomUUID(), "ROLE_USER", "User Role");
 
         if (!roleRepository.existsRoleByName(roleAdmin.getName())) {
             roleRepository.save(roleAdmin);

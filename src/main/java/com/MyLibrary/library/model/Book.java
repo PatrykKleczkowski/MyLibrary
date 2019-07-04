@@ -20,6 +20,7 @@ import java.util.UUID;
 public class Book {
 
     @Id
+    @GeneratedValue
     private UUID id;
 
     private String title;
