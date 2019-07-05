@@ -49,19 +49,20 @@ public class BookService {
         return bookRepository.save(book);
     }
 
-    public Hire rentBook(UUID bookId) {
-        Book book = bookRepository.getBookById(bookId);
+    public boolean isBookAvailable(Book book) {
         if (!book.isAvailable()) {
             throw new BookAvailabilityException("Book is not available");
         }
         if (hireService.getUserHires().toArray().length >= 3) {
             throw new BookLimitException();
         }
-
-        return createHire(book);
+        return true;
     }
 
-    public Hire createHire(Book book) {
+
+    public Hire createHire(UUID bookId) {
+        Book book = bookRepository.getBookById(bookId);
+        isBookAvailable(book);
         Hire hire = new Hire();
         hire.setBook(book);
         hire.setHireDateFrom(new Date());

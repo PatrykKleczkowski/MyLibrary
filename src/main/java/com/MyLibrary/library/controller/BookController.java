@@ -32,7 +32,7 @@ public class BookController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @GetMapping("/books/rentBook/{bookId}")
     public ResponseEntity<?> rentBook(@PathVariable("bookId") UUID bookId) {
-        bookService.rentBook(bookId);
+        bookService.createHire(bookId);
         return ResponseEntity.ok().build();
     }
 
